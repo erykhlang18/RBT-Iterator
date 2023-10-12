@@ -1,0 +1,25 @@
+#!/usr/bin/env bash
+
+JUNITPATH="/libs/junit5.jar"
+
+if [[ ! -f IterableMultiKeyRBT.java ]]; then
+	echo
+	echo "Submission Failed Check: file IterableMultiKeyRBT.java not found"
+	exit 1
+fi
+
+if ! javac -cp ${JUNITPATH}:. *.java; then
+	echo
+	echo "Submission Failed Check: cannot compile all java files in submission"
+	exit 1
+fi
+
+if ! java -jar ${JUNITPATH} --class-path=. --select-class=P15SubmissionChecker; then
+	echo
+	echo "Submission Failed Check: one or more JUnit tests failed; if you have submitted (pushed) 3 or more JUnit test methods then your submission is complete for the mid-week deadline"
+	exit 1
+fi
+
+echo
+echo "Submission Passed Basic Scan"
+exit 0
